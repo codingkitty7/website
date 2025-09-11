@@ -51,10 +51,30 @@ main {
 }
 
 .profile-title {
-  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 2rem;
 }
 
 .profile-subtitle {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: rgb(156 163 175);
+  margin-top: 0.25rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.icon {
+  color: rgb(156 163 175);
+  width: 28px;
+  height: 28px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.icon:hover {
+  color: #ffffff;
+  transform: scale(1.1);
 }
