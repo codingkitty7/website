@@ -17,6 +17,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #ffffff;
   background-color: #0a0a0a;
   background-image: radial-gradient(
       circle at 15% 15%,
@@ -36,4 +37,23 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profile-picture {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-title {
+  font-size: 1.5rem;
+}
+
+.profile-subtitle {
+  font-size: 1rem;
+  color: rgb(156 163 175);
 }
