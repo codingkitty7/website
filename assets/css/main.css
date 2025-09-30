@@ -416,6 +416,7 @@ main::-webkit-scrollbar-thumb:hover {
   color: rgb(156 163 175);
   font-size: 0.875rem;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .site-footer a {
