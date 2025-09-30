@@ -16,8 +16,9 @@ body {
   min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #ffffff;
   background-color: #0a0a0a;
   background-image: radial-gradient(
@@ -37,6 +38,8 @@ body {
     );
   position: relative;
   overflow: hidden;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 body::before {
@@ -60,20 +63,33 @@ body::before {
   z-index: -1;
 }
 
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 2rem);
+  width: 100%;
+  max-width: 25.2rem;
+}
+
 .glossy-container {
   position: relative;
   width: 100%;
-  max-width: 28rem;
-  padding: 2rem;
+  max-width: 25.2rem;
+  max-height: calc(100vh - 4rem);
+  padding: 1.31rem;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
+  border-radius: 21px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .glossy-container::before {
@@ -93,6 +109,19 @@ body::before {
   z-index: -1;
 }
 
+/* Profile header - fixed at top */
+.profile-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 main {
   width: 100%;
   display: flex;
@@ -100,11 +129,33 @@ main {
   align-items: center;
   position: relative;
   z-index: 2;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar styling */
+main::-webkit-scrollbar {
+  width: 6px;
+}
+
+main::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .profile-picture {
-  width: 12rem;
-  height: 12rem;
+  width: 8.93rem;
+  height: 8.93rem;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.1);
@@ -121,11 +172,11 @@ main {
 
 .profile-title {
   margin-top: 1.5rem;
-  font-size: 1.75rem;
+  font-size: 1.37rem;
 }
 
 .profile-subtitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: rgb(156 163 175);
   margin-top: 0.5rem;
 }
@@ -138,8 +189,8 @@ main {
 
 .icon {
   color: rgb(156 163 175);
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -148,12 +199,27 @@ main {
   transform: scale(1.1);
 }
 
-nav {
+/* Section styling */
+.links-section {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.section-title {
+  font-size: 0.89rem;
+  font-weight: 600;
+  color: rgb(156 163 175);
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-nav {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 1.5rem;
   gap: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -167,15 +233,16 @@ nav {
   -webkit-backdrop-filter: blur(16px);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   width: 100%;
-  max-width: 20rem;
+  max-width: 15.75rem;
   text-align: center;
-  padding: 0.75rem 1.25rem;
-  border-radius: 12px;
+  padding: 0.58rem 0.89rem;
+  border-radius: 10.5px;
   font-weight: 600;
   color: #ffffff;
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  font-size: 0.95rem;
 }
 
 .button::before {
@@ -218,10 +285,10 @@ nav {
 }
 
 .discord-logo {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   position: absolute;
-  left: 1rem;
+  left: 0.89rem;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -246,10 +313,10 @@ nav {
 }
 
 .fish-logo {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   position: absolute;
-  left: 1rem;
+  left: 0.89rem;
   top: 50%;
   transform: translateY(-50%);
   color: #ffffff;
@@ -272,12 +339,94 @@ nav {
 }
 
 .profile-logo {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   position: absolute;
-  left: 1rem;
+  left: 0.89rem;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Server hosting button styling */
+.button.server-hosting {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.server-logo {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 0.89rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+}
+
+.button.server-hosting:hover {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: rgba(34, 197, 94, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Code editor button styling */
+.button.code-editor {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.vscode-logo {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 0.89rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+}
+
+.button.code-editor:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Footer styling */
+.site-footer {
+  text-align: center;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.site-footer p {
+  color: rgb(156 163 175);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.site-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: rgb(168, 85, 247);
+  text-decoration: underline;
 }
 
 @keyframes fadeUp {
@@ -290,6 +439,120 @@ nav {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
+  }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .content-wrapper {
+    max-width: 24rem;
+  }
+
+  .glossy-container {
+    max-width: 24rem;
+    padding: 1.25rem;
+  }
+
+  .profile-picture {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .profile-title {
+    font-size: 1.25rem;
+  }
+
+  .profile-subtitle {
+    font-size: 1rem;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .section-title {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    max-width: 16rem;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .discord-logo,
+  .fish-logo,
+  .profile-logo,
+  .server-logo,
+  .vscode-logo {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 2rem 0.625rem 0.625rem 0.625rem; /* 15px top, 10px sides and bottom */
+  }
+
+  .content-wrapper {
+    max-width: calc(100vw - 1.25rem); /* Full width minus 20px total gap */
+    height: calc(
+      100vh - 1.5625rem
+    ); /* Full height minus 15px top + 10px bottom padding */
+  }
+
+  .glossy-container {
+    max-width: calc(100vw - 1.25rem); /* Full width minus 20px total gap */
+    padding: 1.25rem;
+  }
+
+  .profile-picture {
+    width: 8.5rem;
+    height: 8.5rem;
+  }
+
+  .profile-title {
+    font-size: 1.37rem;
+  }
+
+  .profile-subtitle {
+    font-size: 1rem;
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .section-title {
+    font-size: 0.89rem;
+  }
+
+  .button {
+    max-width: 15.75rem;
+    padding: 0.58rem 0.89rem;
+    font-size: 0.95rem;
+  }
+
+  .discord-logo,
+  .fish-logo,
+  .profile-logo,
+  .server-logo,
+  .vscode-logo {
+    width: 18px;
+    height: 18px;
+  }
+
+  .social-icons {
+    gap: 1rem;
+  }
+
+  .section-nav {
+    gap: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
