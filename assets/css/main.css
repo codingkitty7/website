@@ -37,7 +37,7 @@ body {
       rgba(168, 85, 247, 0) 50%
     );
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   padding: 2rem;
   box-sizing: border-box;
 }
