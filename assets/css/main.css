@@ -405,6 +405,36 @@ main::-webkit-scrollbar-thumb:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+/* Buffer button style */
+/* Code editor button styling */
+.button.buffer {
+  background: rgba(232, 232, 232, 0.8);
+  border-color: rgba(166, 166, 166, 0.4);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.buffer-logo {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 0.89rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+}
+
+.button.buffer:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(246, 246, 246, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(242, 242, 242, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
 /* Footer styling */
 .site-footer {
   text-align: center;
