@@ -1,595 +1,581 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
 body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  color: #ffffff;
-  background-color: #0a0a0a;
-  background-image: radial-gradient(
-      circle at 15% 15%,
-      rgba(124, 58, 237, 0.3) 0%,
-      rgba(124, 58, 237, 0) 35%
+    font-family: "Inter", sans-serif;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #ffffff;
+    background-color: #0a0a0a;
+    background-image: radial-gradient(
+            circle at 15% 15%,
+            rgba(124, 58, 237, 0.3) 0%,
+            rgba(124, 58, 237, 0) 35%
     ),
     radial-gradient(
-      circle at 85% 80%,
-      rgba(79, 70, 229, 0.25) 0%,
-      rgba(79, 70, 229, 0) 40%
+            circle at 85% 80%,
+            rgba(79, 70, 229, 0.25) 0%,
+            rgba(79, 70, 229, 0) 40%
     ),
     radial-gradient(
-      circle at 50% 50%,
-      rgba(168, 85, 247, 0.1) 0%,
-      rgba(168, 85, 247, 0) 50%
+            circle at 50% 50%,
+            rgba(168, 85, 247, 0.1) 0%,
+            rgba(168, 85, 247, 0) 50%
     );
-  position: relative;
-  overflow: auto;
-  padding: 2rem;
-  box-sizing: border-box;
+    position: relative;
+    overflow: auto;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-      circle at 20% 80%,
-      rgba(236, 72, 153, 0.15) 0%,
-      rgba(236, 72, 153, 0) 30%
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+            circle at 20% 80%,
+            rgba(236, 72, 153, 0.15) 0%,
+            rgba(236, 72, 153, 0) 30%
     ),
     radial-gradient(
-      circle at 80% 20%,
-      rgba(59, 130, 246, 0.15) 0%,
-      rgba(59, 130, 246, 0) 30%
+            circle at 80% 20%,
+            rgba(59, 130, 246, 0.15) 0%,
+            rgba(59, 130, 246, 0) 30%
     );
-  filter: blur(40px);
-  z-index: -1;
+    filter: blur(40px);
+    z-index: -1;
 }
 
 .content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 2rem);
-  width: 100%;
-  max-width: 25.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 2rem);
+    width: 100%;
+    max-width: 25.2rem;
 }
 
 .glossy-container {
-  position: relative;
-  width: 100%;
-  max-width: 25.2rem;
-  max-height: calc(100vh - 4rem);
-  padding: 1.31rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 21px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    position: relative;
+    width: 100%;
+    max-width: 25.2rem;
+    max-height: calc(100vh - 4rem);
+    padding: 1.31rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 21px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .glossy-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  border-radius: 24px;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.02) 100%
+    );
+    border-radius: 24px;
+    z-index: -1;
 }
 
-/* Profile header - fixed at top */
 .profile-header {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 main {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 0.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
 }
 
-/* Custom scrollbar styling */
 main::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 main::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
 }
 
 main::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
 }
 
 main::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .profile-picture {
-  width: 8.93rem;
-  height: 8.93rem;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+    width: 8.93rem;
+    height: 8.93rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 .profile-picture:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .profile-info {
-  text-align: center;
+    text-align: center;
 }
 
 .profile-title {
-  margin-top: 1.5rem;
-  font-size: 1.37rem;
+    margin-top: 1.5rem;
+    font-size: 1.37rem;
 }
 
 .profile-subtitle {
-  font-size: 1rem;
-  color: rgb(156 163 175);
-  margin-top: 0.5rem;
+    font-size: 1rem;
+    color: rgb(156 163 175);
+    margin-top: 0.5rem;
 }
 
 .social-icons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .icon {
-  color: rgb(156 163 175);
-  width: 25px;
-  height: 25px;
-  transition: color 0.3s ease, transform 0.3s ease;
+    color: rgb(156 163 175);
+    width: 25px;
+    height: 25px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .icon:hover {
-  color: #ffffff;
-  transform: scale(1.1);
+    color: #ffffff;
+    transform: scale(1.1);
 }
 
-/* Section styling */
 .links-section {
-  width: 100%;
-  margin-top: 1.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
 .section-title {
-  font-size: 0.89rem;
-  font-weight: 600;
-  color: rgb(156 163 175);
-  text-align: center;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+    font-size: 0.89rem;
+    font-weight: 600;
+    color: rgb(156 163 175);
+    text-align: center;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .section-nav {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Enhanced glossy buttons that complement the container */
 .button {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  width: 100%;
-  max-width: 15.75rem;
-  text-align: center;
-  padding: 0.58rem 0.89rem;
-  border-radius: 10.5px;
-  font-weight: 600;
-  color: #ffffff;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+    max-width: 15.75rem;
+    text-align: center;
+    padding: 0.58rem 0.89rem;
+    border-radius: 10.5px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.95rem;
 }
 
 .button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.5s;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+    );
+    transition: left 0.5s;
 }
 
 .button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .button:hover::before {
-  left: 100%;
+    left: 100%;
 }
 
-/* Discord button styling */
 .button.discord {
-  background: rgba(88, 101, 242, 0.2);
-  border-color: rgba(88, 101, 242, 0.4);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    background: rgba(88, 101, 242, 0.2);
+    border-color: rgba(88, 101, 242, 0.4);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .discord-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .button.discord:hover {
-  background: rgba(88, 101, 242, 0.3);
-  border-color: rgba(88, 101, 242, 0.6);
-  box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3),
+    background: rgba(88, 101, 242, 0.3);
+    border-color: rgba(88, 101, 242, 0.6);
+    box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Buy me a fish button styling */
 .button.buy-fish {
-  background: #cc9900;
-  border-color: #cc9900;
-  color: #ffffff;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    background: #cc9900;
+    border-color: #cc9900;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .fish-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ffffff;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
 }
 
 .button.buy-fish:hover {
-  background: #b38600;
-  border-color: #b38600;
-  color: #ffffff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
+    background: #b38600;
+    border-color: #b38600;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* About me button styling */
 .button.about-me {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .profile-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-/* Server hosting button styling */
 .button.server-hosting {
-  background: rgba(34, 197, 94, 0.2);
-  border-color: rgba(34, 197, 94, 0.4);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.4);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .server-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ffffff;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
 }
 
 .button.server-hosting:hover {
-  background: rgba(34, 197, 94, 0.3);
-  border-color: rgba(34, 197, 94, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3),
+    background: rgba(34, 197, 94, 0.3);
+    border-color: rgba(34, 197, 94, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Code editor button styling */
 .button.code-editor {
-  background: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.4);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .vscode-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ffffff;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
 }
 
 .button.code-editor:hover {
-  background: rgba(59, 130, 246, 0.3);
-  border-color: rgba(59, 130, 246, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3),
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Buffer button style */
-/* Code editor button styling */
 .button.buffer {
-  background: rgba(232, 232, 232, 0.8);
-  border-color: rgba(166, 166, 166, 0.4);
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    background: rgba(232, 232, 232, 0.8);
+    border-color: rgba(166, 166, 166, 0.4);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .buffer-logo {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  left: 0.89rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ffffff;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0.89rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
 }
 
 .button.buffer:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(246, 246, 246, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(242, 242, 242, 0.3),
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(246, 246, 246, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(242, 242, 242, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Footer styling */
 .site-footer {
-  text-align: center;
-  padding: 1rem 0;
-  margin-bottom: 1rem;
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
 }
 
 .site-footer p {
-  color: rgb(156 163 175);
-  font-size: 0.875rem;
-  margin: 0;
-  margin-bottom: 0.5rem;
+    color: rgb(156 163 175);
+    font-size: 0.875rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 .site-footer a {
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.3s ease;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .site-footer a:hover {
-  color: rgb(168, 85, 247);
-  text-decoration: underline;
+    color: rgb(168, 85, 247);
+    text-decoration: underline;
 }
 
 @keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
-  .content-wrapper {
-    max-width: 24rem;
-  }
+    .content-wrapper {
+        max-width: 24rem;
+    }
 
-  .glossy-container {
-    max-width: 24rem;
-    padding: 1.25rem;
-  }
+    .glossy-container {
+        max-width: 24rem;
+        padding: 1.25rem;
+    }
 
-  .profile-picture {
-    width: 8rem;
-    height: 8rem;
-  }
+    .profile-picture {
+        width: 8rem;
+        height: 8rem;
+    }
 
-  .profile-title {
-    font-size: 1.25rem;
-  }
+    .profile-title {
+        font-size: 1.25rem;
+    }
 
-  .profile-subtitle {
-    font-size: 1rem;
-  }
+    .profile-subtitle {
+        font-size: 1rem;
+    }
 
-  .icon {
-    width: 24px;
-    height: 24px;
-  }
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
 
-  .section-title {
-    font-size: 0.9rem;
-  }
+    .section-title {
+        font-size: 0.9rem;
+    }
 
-  .button {
-    max-width: 16rem;
-    padding: 0.55rem 0.9rem;
-    font-size: 0.9rem;
-  }
+    .button {
+        max-width: 16rem;
+        padding: 0.55rem 0.9rem;
+        font-size: 0.9rem;
+    }
 
-  .discord-logo,
-  .fish-logo,
-  .profile-logo,
-  .server-logo,
-  .vscode-logo {
-    width: 18px;
-    height: 18px;
-  }
+    .discord-logo,
+    .fish-logo,
+    .profile-logo,
+    .server-logo,
+    .vscode-logo {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 2rem 0.625rem 0.625rem 0.625rem; /* 15px top, 10px sides and bottom */
-  }
+    body {
+        padding: 2rem 0.625rem 0.625rem 0.625rem;
+    }
 
-  .content-wrapper {
-    max-width: calc(100vw - 1.25rem); /* Full width minus 20px total gap */
-    height: calc(
-      100vh - 1.5625rem
-    ); /* Full height minus 15px top + 10px bottom padding */
-  }
+    .content-wrapper {
+        max-width: calc(100vw - 1.25rem);
+        height: calc(
+                100vh - 1.5625rem
+        );
+    }
 
-  .glossy-container {
-    max-width: calc(100vw - 1.25rem); /* Full width minus 20px total gap */
-    padding: 1.25rem;
-  }
+    .glossy-container {
+        max-width: calc(100vw - 1.25rem);
+        padding: 1.25rem;
+    }
 
-  .profile-picture {
-    width: 8.5rem;
-    height: 8.5rem;
-  }
+    .profile-picture {
+        width: 8.5rem;
+        height: 8.5rem;
+    }
 
-  .profile-title {
-    font-size: 1.37rem;
-  }
+    .profile-title {
+        font-size: 1.37rem;
+    }
 
-  .profile-subtitle {
-    font-size: 1rem;
-  }
+    .profile-subtitle {
+        font-size: 1rem;
+    }
 
-  .icon {
-    width: 25px;
-    height: 25px;
-  }
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
 
-  .section-title {
-    font-size: 0.89rem;
-  }
+    .section-title {
+        font-size: 0.89rem;
+    }
 
-  .button {
-    max-width: 15.75rem;
-    padding: 0.58rem 0.89rem;
-    font-size: 0.95rem;
-  }
+    .button {
+        max-width: 15.75rem;
+        padding: 0.58rem 0.89rem;
+        font-size: 0.95rem;
+    }
 
-  .discord-logo,
-  .fish-logo,
-  .profile-logo,
-  .server-logo,
-  .vscode-logo {
-    width: 18px;
-    height: 18px;
-  }
+    .discord-logo,
+    .fish-logo,
+    .profile-logo,
+    .server-logo,
+    .vscode-logo {
+        width: 18px;
+        height: 18px;
+    }
 
-  .social-icons {
-    gap: 1rem;
-  }
+    .social-icons {
+        gap: 1rem;
+    }
 
-  .section-nav {
-    gap: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+    .section-nav {
+        gap: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
-/* animations for all elements */
 .glossy-container {
-  opacity: 1;
+    opacity: 1;
 }
 
 .profile-picture,
@@ -597,5 +583,5 @@ main::-webkit-scrollbar-thumb:hover {
 .profile-subtitle,
 .icon,
 .button {
-  opacity: 1;
+    opacity: 1;
 }
