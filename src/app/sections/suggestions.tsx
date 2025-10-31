@@ -24,7 +24,6 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { ArrowDown, ArrowUp, Tag } from "lucide-react";
 
-// --- Types ---
 type TopicStatus =
   | "idea"
   | "queued"
@@ -54,11 +53,10 @@ type WipItem = {
   id: string;
   title: string;
   stage: "research" | "script" | "recording" | "editing";
-  progress: number; // 0..100
+  progress: number;
   notes?: string;
 };
 
-// --- Seed data (swap out with your API) ---
 const seedTopics: Topic[] = [
   {
     id: "t1",
@@ -135,63 +133,37 @@ const seedSuggestions: Suggestion[] = [
   },
 ];
 
-// --- Helpers ---
 const statusToBadge = (s: TopicStatus) => {
-  switch (s) {
-    case "idea":
-      return {
-        label: "Idea",
-        className: "bg-zinc-900 text-zinc-300 border-zinc-800",
-      };
-    case "queued":
-      return {
-        label: "Queued",
-        className: "bg-zinc-900 text-zinc-300 border-zinc-800",
-      };
-    case "researching":
-      return {
-        label: "Researching",
-        className: "bg-purple-900/30 text-purple-300 border-purple-800",
-      };
-    case "recording":
-      return {
-        label: "Recording",
-        className: "bg-blue-900/30 text-blue-300 border-blue-800",
-      };
-    case "editing":
-      return {
-        label: "Editing",
-        className: "bg-amber-900/30 text-amber-300 border-amber-800",
-      };
-    case "published":
-      return {
-        label: "Published",
-        className: "bg-emerald-900/30 text-emerald-300 border-emerald-800",
-      };
-  }
+  const theme = {
+    idea: "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-800 dark:bg-sky-900/50 dark:text-sky-200",
+    queued:
+      "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-200",
+    researching:
+      "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-800 dark:bg-violet-900/50 dark:text-violet-200",
+    recording:
+      "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-900/50 dark:text-blue-200",
+    editing:
+      "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-900/50 dark:text-amber-200",
+    published:
+      "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200",
+  };
+  return { label: s.charAt(0).toUpperCase() + s.slice(1), className: theme[s] };
 };
 
-const safeId = () => {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto)
-    return crypto.randomUUID();
-  return Math.random().toString(36).slice(2);
-};
+const safeId = () =>
+  typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : Math.random().toString(36).slice(2);
 
-// --- Component ---
 export function TopicsAndSuggestions() {
-  // local state (replace with server state later)
-  const [topics, setTopics] = useState<Topic[]>(seedTopics);
-  const [wip, setWip] = useState<WipItem[]>(seedWip);
-  const [suggestions, setSuggestions] = useState<Suggestion[]>(seedSuggestions);
-
-  // filters/sorting
+  const [topics, setTopics] = useState(seedTopics);
+  const [wip, setWip] = useState(seedWip);
+  const [suggestions, setSuggestions] = useState(seedSuggestions);
   const [topicFilter, setTopicFilter] = useState<"all" | TopicStatus>("all");
   const [suggestionSort, setSuggestionSort] = useState<"votes" | "newest">(
     "votes"
   );
   const [query, setQuery] = useState("");
-
-  // submit form
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [tags, setTags] = useState("");
@@ -217,46 +189,33 @@ export function TopicsAndSuggestions() {
         s.tags.some((tag) => tag.toLowerCase().includes(q)) ||
         (s.details && s.details.toLowerCase().includes(q))
     );
-    if (suggestionSort === "votes") {
-      arr = arr.sort((a, b) => b.votes - a.votes);
-    } else {
-      arr = arr.sort((a, b) => b.createdAt - a.createdAt);
-    }
-    return arr;
+    return suggestionSort === "votes"
+      ? arr.sort((a, b) => b.votes - a.votes)
+      : arr.sort((a, b) => b.createdAt - a.createdAt);
   }, [suggestions, suggestionSort, query]);
 
   function handleVote(id: string, dir: "up" | "down") {
-    // optimistic UI
     setSuggestions((prev) =>
       prev.map((s) => {
         if (s.id !== id) return s;
         let delta = 0;
-        // toggle logic
-        if (!s.userVoted) {
-          delta = dir === "up" ? 1 : -1;
-          return { ...s, votes: s.votes + delta, userVoted: dir };
-        }
-        if (s.userVoted === dir) {
-          // unvote
-          delta = dir === "up" ? -1 : 1;
-          return { ...s, votes: s.votes + delta, userVoted: null };
-        }
-        // switch vote
-        delta = dir === "up" ? 2 : -2;
-        return { ...s, votes: s.votes + delta, userVoted: dir };
+        if (!s.userVoted) delta = dir === "up" ? 1 : -1;
+        else if (s.userVoted === dir) delta = dir === "up" ? -1 : 1;
+        else delta = dir === "up" ? 2 : -2;
+        return {
+          ...s,
+          votes: s.votes + delta,
+          userVoted: s.userVoted === dir ? null : dir,
+        };
       })
     );
-
-    // TODO: POST /api/suggestions/{id}/vote {dir}
-    // fetch(`/api/suggestions/${id}/vote`, { method: "POST", body: JSON.stringify({ dir }) });
   }
 
   function handleSubmitSuggestion() {
-    const t = title.trim();
-    if (!t) return;
+    if (!title.trim()) return;
     const newItem: Suggestion = {
       id: safeId(),
-      title: t,
+      title: title.trim(),
       details: details.trim() || undefined,
       tags: tags
         .split(",")
@@ -264,42 +223,39 @@ export function TopicsAndSuggestions() {
         .filter(Boolean),
       votes: 0,
       createdAt: Date.now(),
-      userVoted: "up", // auto-upvote author for nice UX
+      userVoted: "up",
     };
     setSuggestions((prev) => [newItem, ...prev]);
     setTitle("");
     setDetails("");
     setTags("");
-
-    // TODO: POST /api/suggestions
-    // await fetch("/api/suggestions", { method: "POST", body: JSON.stringify(newItem) })
   }
 
   return (
     <section className="mt-16 w-full">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-white">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-sky-50">
             Topics & Suggestions
           </h2>
-          <p className="mt-1 text-zinc-400">
+          <p className="mt-1 text-slate-600 dark:text-sky-200">
             Vote on ideas, submit suggestions, and track what{" "}
-            <span className="text-zinc-300">The Coding Kitty Project</span> is
-            working on.
+            <span className="text-slate-800 dark:text-sky-100">
+              The Coding Kitty Project
+            </span>{" "}
+            is working on.
           </p>
         </div>
-        <div className="flex gap-2">
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search topics & suggestions…"
-            className="w-56 border-zinc-800 bg-zinc-950 text-zinc-100 placeholder:text-zinc-500"
-          />
-        </div>
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search topics & suggestions…"
+          className="w-56 border-sky-200 bg-white text-slate-700 placeholder:text-slate-400 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-100 dark:placeholder:text-sky-400"
+        />
       </div>
 
       <Tabs defaultValue="topics" className="mt-6">
-        <TabsList className="bg-zinc-900 text-zinc-200">
+        <TabsList className="bg-sky-50 text-slate-700 dark:bg-sky-900 dark:text-sky-100">
           <TabsTrigger value="topics">Topics</TabsTrigger>
           <TabsTrigger value="suggestions">Suggestions</TabsTrigger>
           <TabsTrigger value="wip">Work in progress</TabsTrigger>
@@ -307,136 +263,87 @@ export function TopicsAndSuggestions() {
 
         {/* Topics */}
         <TabsContent value="topics" className="mt-6 space-y-4">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-zinc-400">Filter:</span>
-              <Select
-                value={topicFilter}
-                onValueChange={(v: any) => setTopicFilter(v)}
+          {filteredTopics.map((t) => {
+            const badge = statusToBadge(t.status);
+            return (
+              <Card
+                key={t.id}
+                className="border-sky-200 bg-white hover:bg-sky-50 dark:border-sky-800 dark:bg-sky-900 dark:hover:bg-sky-800/60"
               >
-                <SelectTrigger className="w-44 border-zinc-800 bg-zinc-950 text-zinc-100">
-                  <SelectValue placeholder="All statuses" />
-                </SelectTrigger>
-                <SelectContent className="border-zinc-800 bg-zinc-950">
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="idea">Idea</SelectItem>
-                  <SelectItem value="queued">Queued</SelectItem>
-                  <SelectItem value="researching">Researching</SelectItem>
-                  <SelectItem value="recording">Recording</SelectItem>
-                  <SelectItem value="editing">Editing</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <span className="text-sm text-zinc-500">
-              {filteredTopics.length} items
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4">
-            {filteredTopics.map((t) => {
-              const badge = statusToBadge(t.status);
-              return (
-                <Card
-                  key={t.id}
-                  className="border-zinc-800 bg-zinc-950/60 hover:bg-zinc-900/60"
-                >
-                  <CardHeader className="flex flex-row items-start justify-between space-y-0">
-                    <div className="space-y-1">
-                      <CardTitle className="text-base text-zinc-100">
-                        {t.title}
-                      </CardTitle>
-                      <div className="flex flex-wrap gap-2">
-                        {t.tags.map((tg) => (
-                          <Badge
-                            key={tg}
-                            variant="outline"
-                            className="border-zinc-800 text-zinc-300"
-                          >
-                            <Tag className="mr-1 h-3 w-3 opacity-70" />
-                            {tg}
-                          </Badge>
-                        ))}
-                      </div>
+                <CardHeader className="flex flex-row items-start justify-between space-y-0">
+                  <div className="space-y-1">
+                    <CardTitle className="text-base text-slate-900 dark:text-sky-50">
+                      {t.title}
+                    </CardTitle>
+                    <div className="flex flex-wrap gap-2">
+                      {t.tags.map((tg) => (
+                        <Badge
+                          key={tg}
+                          variant="outline"
+                          className="border-sky-200 text-slate-700 dark:border-sky-700 dark:text-sky-100"
+                        >
+                          <Tag className="mr-1 h-3 w-3 opacity-70" />
+                          {tg}
+                        </Badge>
+                      ))}
                     </div>
-                    <Badge
-                      variant="outline"
-                      className={`border ${badge.className}`}
-                    >
-                      {badge.label}
-                    </Badge>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
+                  </div>
+                  <Badge variant="outline" className={badge.className}>
+                    {badge.label}
+                  </Badge>
+                </CardHeader>
+              </Card>
+            );
+          })}
         </TabsContent>
 
         {/* Suggestions */}
         <TabsContent value="suggestions" className="mt-6 space-y-8">
-          {/* Form */}
-          <Card className="border-zinc-800 bg-zinc-950/60">
+          <Card className="border-sky-200 bg-white dark:border-sky-800 dark:bg-sky-900">
             <CardHeader>
-              <CardTitle className="text-lg">Suggest a topic</CardTitle>
+              <CardTitle className="text-lg text-slate-900 dark:text-sky-50">
+                Suggest a topic
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Title (e.g., 'Intro to Unraid for homelab backups')"
-                className="border-zinc-800 bg-zinc-950 text-zinc-100 placeholder:text-zinc-500"
+                className="border-sky-200 bg-white text-slate-700 placeholder:text-slate-400 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-100 dark:placeholder:text-sky-400"
               />
               <Textarea
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
                 placeholder="Optional details (what problem should it solve, preferred stack, etc.)"
-                className="min-h-[90px] border-zinc-800 bg-zinc-950 text-zinc-100 placeholder:text-zinc-500"
+                className="min-h-[90px] border-sky-200 bg-white text-slate-700 placeholder:text-slate-400 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-100 dark:placeholder:text-sky-400"
               />
               <Input
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 placeholder="Tags (comma-separated), e.g., nextjs, postgres"
-                className="border-zinc-800 bg-zinc-950 text-zinc-100 placeholder:text-zinc-500"
+                className="border-sky-200 bg-white text-slate-700 placeholder:text-slate-400 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-100 dark:placeholder:text-sky-400"
               />
             </CardContent>
             <CardFooter className="justify-between">
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-slate-500 dark:text-sky-300">
                 Suggestions are public. Be constructive and specific. 🙏
               </p>
-              <Button onClick={handleSubmitSuggestion} disabled={!title.trim()}>
+              <Button
+                onClick={handleSubmitSuggestion}
+                disabled={!title.trim()}
+                className="rounded-full bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400"
+              >
                 Submit
               </Button>
             </CardFooter>
           </Card>
 
-          {/* Controls */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-zinc-400">Sort by:</span>
-              <Select
-                value={suggestionSort}
-                onValueChange={(v: any) => setSuggestionSort(v)}
-              >
-                <SelectTrigger className="w-40 border-zinc-800 bg-zinc-950 text-zinc-100">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="border-zinc-800 bg-zinc-950">
-                  <SelectItem value="votes">Top votes</SelectItem>
-                  <SelectItem value="newest">Newest</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <span className="text-sm text-zinc-500">
-              {sortedSuggestions.length} suggestions
-            </span>
-          </div>
-
-          {/* List */}
           <div className="grid grid-cols-1 gap-4">
             {sortedSuggestions.map((s) => (
               <Card
                 key={s.id}
-                className="border-zinc-800 bg-zinc-950/60 hover:bg-zinc-900/60"
+                className="border-sky-200 bg-white hover:bg-sky-50 dark:border-sky-800 dark:bg-sky-900 dark:hover:bg-sky-800/60"
               >
                 <CardContent className="flex items-start gap-4 p-4">
                   {/* Votes */}
@@ -444,15 +351,16 @@ export function TopicsAndSuggestions() {
                     <Button
                       size="icon"
                       variant={s.userVoted === "up" ? "default" : "outline"}
-                      className={`h-8 w-8 ${
-                        s.userVoted === "up" ? "" : "border-zinc-800"
+                      className={`h-8 w-8 rounded-full ${
+                        s.userVoted === "up"
+                          ? "bg-sky-600 text-white hover:bg-sky-700"
+                          : "border-sky-200 text-slate-700 hover:border-sky-400 dark:border-sky-800 dark:text-sky-100"
                       }`}
                       onClick={() => handleVote(s.id, "up")}
-                      aria-label="Upvote"
                     >
                       <ArrowUp className="h-4 w-4" />
                     </Button>
-                    <div className="text-sm font-medium text-zinc-200">
+                    <div className="text-sm font-medium text-slate-700 dark:text-sky-100">
                       {s.votes}
                     </div>
                     <Button
@@ -460,47 +368,41 @@ export function TopicsAndSuggestions() {
                       variant={
                         s.userVoted === "down" ? "destructive" : "outline"
                       }
-                      className={`h-8 w-8 ${
-                        s.userVoted === "down" ? "" : "border-zinc-800"
+                      className={`h-8 w-8 rounded-full ${
+                        s.userVoted === "down"
+                          ? "bg-rose-600 text-white hover:bg-rose-700"
+                          : "border-sky-200 text-slate-700 hover:border-sky-400 dark:border-sky-800 dark:text-sky-100"
                       }`}
                       onClick={() => handleVote(s.id, "down")}
-                      aria-label="Downvote"
                     >
                       <ArrowDown className="h-4 w-4" />
                     </Button>
                   </div>
 
-                  {/* Body */}
+                  {/* Suggestion content */}
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <h4 className="text-base font-medium text-zinc-100">
-                          {s.title}
-                        </h4>
-                        {s.details && (
-                          <p className="mt-1 text-sm text-zinc-400">
-                            {s.details}
-                          </p>
-                        )}
-                        {!!s.tags.length && (
-                          <div className="mt-2 flex flex-wrap gap-2">
-                            {s.tags.map((tg) => (
-                              <Badge
-                                key={tg}
-                                variant="outline"
-                                className="border-zinc-800 text-zinc-300"
-                              >
-                                <Tag className="mr-1 h-3 w-3 opacity-70" />
-                                {tg}
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
+                    <h4 className="text-base font-medium text-slate-900 dark:text-sky-50">
+                      {s.title}
+                    </h4>
+                    {s.details && (
+                      <p className="mt-1 text-sm text-slate-600 dark:text-sky-200">
+                        {s.details}
+                      </p>
+                    )}
+                    {!!s.tags.length && (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {s.tags.map((tg) => (
+                          <Badge
+                            key={tg}
+                            variant="outline"
+                            className="border-sky-200 text-slate-700 dark:border-sky-700 dark:text-sky-100"
+                          >
+                            <Tag className="mr-1 h-3 w-3 opacity-70" />
+                            {tg}
+                          </Badge>
+                        ))}
                       </div>
-                      <span className="shrink-0 text-xs text-zinc-500">
-                        {new Date(s.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -510,42 +412,42 @@ export function TopicsAndSuggestions() {
 
         {/* Work in progress */}
         <TabsContent value="wip" className="mt-6 space-y-4">
-          <div className="grid grid-cols-1 gap-4">
-            {wip.map((item) => (
-              <Card key={item.id} className="border-zinc-800 bg-zinc-950/60">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-1">
-                      <CardTitle className="text-base text-zinc-100">
-                        {item.title}
-                      </CardTitle>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge
-                          variant="outline"
-                          className="border-zinc-800 text-zinc-300"
-                        >
-                          {item.stage}
-                        </Badge>
-                      </div>
-                    </div>
-                    <span className="text-sm text-zinc-400">
-                      {item.progress}%
-                    </span>
+          {wip.map((item) => (
+            <Card
+              key={item.id}
+              className="border-sky-200 bg-white dark:border-sky-800 dark:bg-sky-900"
+            >
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-base text-slate-900 dark:text-sky-50">
+                      {item.title}
+                    </CardTitle>
+                    <Badge
+                      variant="outline"
+                      className="mt-1 border-sky-200 text-slate-700 dark:border-sky-700 dark:text-sky-100"
+                    >
+                      {item.stage}
+                    </Badge>
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Progress value={item.progress} className="h-2" />
-                  {item.notes && (
-                    <p className="text-sm text-zinc-400">{item.notes}</p>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <Separator className="bg-zinc-800" />
-          <p className="text-xs text-zinc-500">
-            Work in progress reflects current videos being produced. Stages may
-            change as the outline evolves.
+                  <span className="text-sm text-slate-500 dark:text-sky-300">
+                    {item.progress}%
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Progress value={item.progress} className="h-2" />
+                {item.notes && (
+                  <p className="mt-2 text-sm text-slate-600 dark:text-sky-200">
+                    {item.notes}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+          <Separator className="bg-sky-200 dark:bg-sky-800" />
+          <p className="text-xs text-slate-500 dark:text-sky-300">
+            Work in progress reflects current videos being produced.
           </p>
         </TabsContent>
       </Tabs>
