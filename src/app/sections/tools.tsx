@@ -60,15 +60,15 @@ export function ToolsSection() {
     <section className="mt-16 w-full">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-white">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-sky-50">
             Tools Kitty Uses
           </h2>
-          <p className="mt-2 text-zinc-400">
-            Battle-tested services we actually use to build and teach — some
-            links are affiliate.
+          <p className="mt-2 text-slate-600 dark:text-sky-200">
+            Kity uses some of these tools in the everyday life - some links are
+            affiliate.
           </p>
         </div>
-        <Badge className="h-6 rounded-full border border-zinc-800 bg-zinc-900/60 text-xs text-zinc-300">
+        <Badge className="h-6 rounded-full border border-sky-200 bg-sky-50 text-xs text-sky-700 dark:border-sky-800 dark:bg-sky-900/60 dark:text-sky-200">
           curated
         </Badge>
       </div>
@@ -77,7 +77,7 @@ export function ToolsSection() {
         {tools.map((t) => (
           <Card
             key={t.name}
-            className="border-zinc-800 bg-zinc-950/60 backdrop-blur transition-colors hover:bg-zinc-900/60"
+            className="border-sky-200 bg-white shadow-[0_10px_30px_-20px_rgba(0,0,0,0.15)] backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-sky-50 dark:border-sky-800 dark:bg-sky-900 dark:shadow-[0_10px_40px_-20px_rgba(0,0,0,0.6)] dark:hover:bg-sky-800/60"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <div className="flex items-center gap-3">
@@ -90,9 +90,9 @@ export function ToolsSection() {
                     className="h-7 w-7"
                   />
                 ) : (
-                  <div className="h-7 w-7 rounded bg-zinc-800" />
+                  <div className="h-7 w-7 rounded bg-sky-100 dark:bg-sky-800" />
                 )}
-                <CardTitle className="text-base text-zinc-100">
+                <CardTitle className="text-base text-slate-900 dark:text-sky-50">
                   {t.name}
                 </CardTitle>
               </div>
@@ -101,7 +101,7 @@ export function ToolsSection() {
                   <Badge
                     key={c}
                     variant="outline"
-                    className="border-zinc-800 text-zinc-300"
+                    className="border-sky-200 text-slate-700 dark:border-sky-800 dark:text-sky-200"
                   >
                     {c}
                   </Badge>
@@ -110,18 +110,27 @@ export function ToolsSection() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-              <p className="text-sm text-zinc-400">{t.tagline}</p>
+              <p className="text-sm text-slate-600 dark:text-sky-200">
+                {t.tagline}
+              </p>
 
-              <ul className="grid list-inside list-disc gap-1 pl-1 text-sm text-zinc-300">
+              <ul className="grid list-inside list-disc gap-1 pl-1 text-sm text-slate-700 dark:text-sky-100">
                 {t.highlights.map((h) => (
-                  <li key={h} className="marker:text-zinc-500">
+                  <li
+                    key={h}
+                    className="marker:text-slate-400 dark:marker:text-sky-400/70"
+                  >
                     {h}
                   </li>
                 ))}
               </ul>
 
               <div className="flex flex-col gap-2 sm:flex-row">
-                <Button asChild className="w-full sm:w-auto">
+                {/* Primary CTA: Visit */}
+                <Button
+                  asChild
+                  className="w-full rounded-full bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 sm:w-auto"
+                >
                   <Link
                     href={t.href}
                     target="_blank"
@@ -130,16 +139,6 @@ export function ToolsSection() {
                     Visit {t.name}
                   </Link>
                 </Button>
-
-                {t.reviewHref && (
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full border-zinc-800 bg-transparent text-zinc-200 hover:bg-zinc-900 sm:w-auto"
-                  >
-                    <Link href={t.reviewHref}>Read review</Link>
-                  </Button>
-                )}
               </div>
             </CardContent>
           </Card>
@@ -147,11 +146,14 @@ export function ToolsSection() {
       </div>
 
       {/* Disclosure */}
-      <p className="mt-4 text-xs leading-relaxed text-zinc-500">
+      <p className="mt-4 text-xs leading-relaxed text-slate-500 dark:text-sky-300/80">
         Some links are affiliate links, which means we may earn a small
-        commission if you purchase through them — at no extra cost to you. We
+        commission if you purchase through them, at no extra cost to you. We
         only recommend tools we genuinely use for{" "}
-        <span className="text-zinc-300">The Coding Kitty Project</span>.
+        <span className="text-slate-800 dark:text-sky-100">
+          The Coding Kitty Project
+        </span>
+        .
       </p>
     </section>
   );
